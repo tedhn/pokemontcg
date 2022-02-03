@@ -1,0 +1,37 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  .cards {
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    row-gap: 10px;
+    column-gap: 150px;
+    margin: auto;
+  }
+
+  .loadmore {
+    margin: auto;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+
+    .text {
+      color: #6a6969;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      margin-left: 10px;
+    }
+  }
+}
