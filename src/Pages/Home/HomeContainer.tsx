@@ -1,30 +1,16 @@
-import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { PokemonContext } from "../../ContextProvider";
 
 import Home from "./Home";
 
 const HomeContainer = () => {
-  const [cards, setCards] = useState<Array<PokemonTCG.Card>>([]);
-  const [counter, setCounter] = useState<number>(1);
+  const { cards, GetCards } = useContext(PokemonContext);
 
   useEffect(() => {
-    GetCards();
-  });
+    GetCards("");
+  }, []);
 
-  const GetCards = async () => {
-    const cards = await PokemonTCG.findCardsByQueries({
-      pageSize: 12 * counter,
-      page: 1,
-    });
-
-    setCards(cards);
-  };
-
-  return (
-    <>
-      <Home cards={cards} counter={counter} setCounter={setCounter} />
-    </>
-  );
+  return <Home cards={cards} GetCards={GetCards} />;
 };
 
 export default HomeContainer;
