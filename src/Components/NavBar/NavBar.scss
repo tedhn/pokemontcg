@@ -7,11 +7,20 @@
   align-items: center;
   justify-content: center;
 
-  .text {
-    height: 75px;
-    width: 150px;
+  .title {
+    font-weight: 700;
     position: relative;
-    top: 60%;
+    top: 40%;
+    z-index: 4;
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .text {
+    height: 40px;
+    width: 80px;
+    position: relative;
+    top: 40%;
     z-index: 3;
   }
 
@@ -20,16 +29,16 @@
 
     .circle {
       background-color: #ffffff;
-      height: 75px;
-      width: 75px;
+      height: 50px;
+      width: 50px;
       display: flex;
       align-content: center;
       justify-content: center;
       border-radius: 100%;
 
       svg {
-        height: 50px;
-        width: 50px;
+        height: 30px;
+        width: 30px;
         margin: auto;
       }
     }

@@ -6,6 +6,7 @@ import { ReactComponent as Logo } from "../../svg/logo.svg";
 const NavBar = () => {
   return (
     <div className="navbar">
+      <div className="title">TCG Marketplace</div>
       <div className="text">
         <Pokemon />
       </div>
