@@ -8,9 +8,19 @@ interface props {
   price: number | null | undefined;
   quantity: number;
   images: string;
+  Add: any;
+  selected: boolean;
 }
 
-const Card: FC<props> = ({ name, rarity, price, quantity, images }) => {
+const Card: FC<props> = ({
+  name,
+  rarity,
+  price,
+  quantity,
+  images,
+  Add,
+  selected,
+}) => {
   return (
     <div className="card">
       <img className="image" src={images} alt={"not found"} />
@@ -24,7 +34,16 @@ const Card: FC<props> = ({ name, rarity, price, quantity, images }) => {
         </div>
       </div>
 
-      <div className="button">Select</div>
+      <div
+        className="button"
+        onClick={Add}
+        style={{
+          backgroundColor: selected ? "#1D1C1C" : "#fdce29",
+          color: selected ? "#ffffff" : "#1D1C1C",
+        }}
+      >
+        {selected ? "Selected" : "Select"}
+      </div>
     </div>
   );
 };

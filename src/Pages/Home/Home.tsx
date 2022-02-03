@@ -1,25 +1,26 @@
-import { FC } from "react";
+import { useContext } from "react";
 
-import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import CardContainer from "../../Components/Card/CardContainer";
 import NavBar from "../../Components/NavBar/NavBar";
 import SearchBarContainer from "../../Components/SearchBar/SarchBarContainer";
 import { ReactComponent as Search } from "../../svg/glasses.svg";
 
 import "./Home.scss";
+import { Badge } from "@mui/material";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import CartContainer from "../../Components/Cart/CartContainer";
+import { PokemonContext } from "../../ContextProvider";
+import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
-interface props {
-  cards: PokemonTCG.Card[];
-  GetCards: any;
-}
+const Home = () => {
+  const { cards, GetCards, cart, toggleCart } = useContext(PokemonContext);
 
-const Home: FC<props> = ({ cards, GetCards }) => {
   return (
     <div className="home">
       <NavBar />
       <SearchBarContainer />
       <div className="cards">
-        {cards.map((card, index) => {
+        {cards.map((card: PokemonTCG.Card, index: number) => {
           return <CardContainer key={index} card={card} />;
         })}
       </div>
@@ -27,6 +28,23 @@ const Home: FC<props> = ({ cards, GetCards }) => {
         <Search />
         <div className="text">show more</div>
       </div>
+      <div className="badge">
+        <Badge
+          badgeContent={cart.length}
+          color="error"
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+        >
+          <div className="viewcart" onClick={toggleCart}>
+            <ShoppingCartOutlinedIcon />
+            <div className="text">View Cart</div>
+          </div>
+        </Badge>
+      </div>
+
+      <CartContainer />
     </div>
   );
 };

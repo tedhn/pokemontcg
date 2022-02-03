@@ -1,11 +1,21 @@
+import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
+import { useContext } from "react";
+import { PokemonContext } from "../../ContextProvider";
 import CartItemContainer from "../CartItem/CartItemContainer";
 import "./Cart.scss";
 
 const Cart = () => {
+  const { cart, showCart, toggleCart } = useContext(PokemonContext);
+
   return (
-    <div className="cart">
+    <div
+      className="cart"
+      style={{ visibility: showCart ? "visible" : "hidden" }}
+    >
       <div className="items">
-        <CartItemContainer />
+        {cart.map((item: PokemonTCG.Card, index: number) => {
+          return <CartItemContainer item={item} key={index} />;
+        })}
       </div>
 
       <div className="clear">Clear All</div>
@@ -21,7 +31,9 @@ const Cart = () => {
         <div className="button">Pay Now</div>
       </div>
 
-      <div className="close">X</div>
+      <div className="close" onClick={toggleCart}>
+        X
+      </div>
     </div>
   );
 };

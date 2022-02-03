@@ -4,13 +4,13 @@ import { PokemonContext } from "../../ContextProvider";
 import Home from "./Home";
 
 const HomeContainer = () => {
-  const { cards, GetCards } = useContext(PokemonContext);
+  const { GetCards } = useContext(PokemonContext);
 
   useEffect(() => {
     GetCards("");
   }, []);
 
-  return <Home cards={cards} GetCards={GetCards} />;
+  return <Home />;
 };
 
 export default HomeContainer;

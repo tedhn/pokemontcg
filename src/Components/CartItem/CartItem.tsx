@@ -1,32 +1,52 @@
+import { FC } from "react";
 import "./CartItem.scss";
 
-const CartItem = () => {
+interface props {
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+  amount: number;
+  AddOne: any;
+  RemoveOne: any;
+}
+
+const CartItem: FC<props> = ({
+  name,
+  image,
+  quantity,
+  price,
+  AddOne,
+  RemoveOne,
+  amount,
+}) => {
   return (
     <div className="cartitem">
-      <img
-        className="image"
-        src="https://images.pokemontcg.io/xy1/1.png"
-        alt={"not found"}
-      />
+      <img className="image" src={image} alt={"not found"} />
       <div className="carddetails">
-        <div className="name">Venusaur-EX</div>
+        <div className="name">{name}</div>
         <div className="price">
-          <div>3.32 </div> per Card
+          <div>${price}</div> per Card
         </div>
         <div className="quantity">
-          <div>146</div>cards left
+          <div>{quantity - 1}</div>cards left
         </div>
       </div>
       <div className="totaldetails">
         <div className="quantity">
-          <div className="number">2</div>
+          <div className="number">{amount}</div>
           <div className="changes">
-            <div>+</div>
-            <div>-</div>
+            <div
+              onClick={AddOne}
+              style={{ pointerEvents: quantity === 1 ? "none" : "auto" }}
+            >
+              +
+            </div>
+            <div onClick={RemoveOne}>-</div>
           </div>
         </div>
         <div className="pricetext">price</div>
-        <div className="tprice">6.64</div>
+        <div className="tprice">${(amount * price).toFixed(2)}</div>
       </div>
     </div>
   );
