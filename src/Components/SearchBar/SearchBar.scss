@@ -1,16 +1,30 @@
 .searchbar {
-  height: 200px;
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 30px;
+  margin: 50px;
 
-  input {
-    height: 40px;
-  }
+  .input {
+    color: #bcbbbb;
+    width: 150px;
+    text-align: center;
+    input {
+      color: #bcbbbb;
+      width: 100%;
+      text-align: center;
+      height: 44px;
+      font-size: fit-content;
+      border: 0;
+      border-right: 3px solid #dfdfdf;
+      border-radius: 50px 0 0 50px;
+      padding: 10px;
+      font-size: 14px;
+      height: 40px;
+      outline: none;
 
-  .dropdown {
-    height: 30px;
-    border-radius: 0;
+      &::placeholder {
+        color: #bcbbbb;
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import "./DropDown.scss";
 
@@ -12,25 +12,43 @@ interface props {
 }
 
 const DropDown: FC<props> = ({ list, label, value, handleChange }) => {
-  return (
-    <FormControl size={"small"} className="dropdown">
-      <InputLabel>{label}</InputLabel>
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
-      <Select
-        value={value}
-        label={label}
-        onChange={handleChange}
-        className="select"
+  const toggling = () => setIsOpen(!isOpen);
+
+  const onOptionClicked = (value: string) => () => {
+    console.log("a");
+    setSelectedOption(value);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="dropdown">
+      <div
+        className={`dropdownheader dropdownheader--${label.toLowerCase()}`}
+        onClick={toggling}
       >
-        {list?.map((value: string, index: number) => {
-          return (
-            <MenuItem value={value} key={index} dense>
-              {value}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+        {selectedOption || label}
+      </div>
+      <div className="dropdownlistcontainer">
+        {isOpen && (
+          <ul className="dropdownlist">
+            {list?.map((value: string, index: number) => {
+              return (
+                <li
+                  className="listitem"
+                  onClick={onOptionClicked(value)}
+                  key={index}
+                >
+                  {value}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 };
 
