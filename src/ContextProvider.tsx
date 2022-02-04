@@ -14,6 +14,7 @@ const ContextProvider: FC<props> = ({ children }) => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
+  const [filtered, setFiltered] = useState<boolean>(false);
 
   const GetCards = async (q: any) => {
     const cards = await PokemonTCG.findCardsByQueries({
@@ -56,6 +57,10 @@ const ContextProvider: FC<props> = ({ children }) => {
     setShowCart(!showCart);
   };
 
+  const UpdateFilter = () => {
+    setFiltered(!filtered);
+  };
+
   return (
     <PokemonContext.Provider
       value={{
@@ -71,6 +76,8 @@ const ContextProvider: FC<props> = ({ children }) => {
         UpdateTotalQuantity,
         totalQuantity,
         RemoveAllItems,
+        UpdateFilter,
+        filtered,
       }}
     >
       {children}

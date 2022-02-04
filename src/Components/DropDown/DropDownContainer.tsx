@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import { PokemonContext } from "../../ContextProvider";
 import DropDown from "./DropDown";
 
@@ -8,21 +8,14 @@ interface props {
 }
 
 const DropDownContainer: FC<props> = ({ list, label }) => {
-  const { GetCards } = useContext(PokemonContext);
-
-  const [value, setValue] = useState("");
-
-  const handleChange = (e: any) => {
-    setValue(e.target.value);
-    GetCards(`${label.toLowerCase()}:${e.target.value.replaceAll(" ", "")}`);
-  };
+  const { GetCards, UpdateFilter } = useContext(PokemonContext);
 
   return (
     <DropDown
       list={list}
       label={label}
-      handleChange={handleChange}
-      value={value}
+      GetCards={GetCards}
+      UpdateFilter={UpdateFilter}
     />
   );
 };

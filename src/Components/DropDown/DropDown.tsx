@@ -5,11 +5,11 @@ import "./DropDown.scss";
 interface props {
   list: Array<any> | undefined;
   label: string;
-  value: string;
-  handleChange: any;
+  GetCards: any;
+  UpdateFilter: any;
 }
 
-const DropDown: FC<props> = ({ list, label, value, handleChange }) => {
+const DropDown: FC<props> = ({ list, label, GetCards, UpdateFilter }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -18,6 +18,8 @@ const DropDown: FC<props> = ({ list, label, value, handleChange }) => {
   const onOptionClicked = (value: string) => () => {
     setSelectedOption(value);
     setIsOpen(false);
+    GetCards(`${label.toLowerCase()}:${value.toLowerCase()}`);
+    UpdateFilter();
   };
 
   return (

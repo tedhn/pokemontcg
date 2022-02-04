@@ -15,7 +15,7 @@
       @extend .dropdown;
       border-radius: 0 50px 50px 0;
     }
-    &--type {
+    &--types {
       @extend .dropdown;
       border-right: 3px solid #dfdfdf;
     }
@@ -28,6 +28,7 @@
   .dropdownlist {
     background: #ffffff;
     box-sizing: border-box;
+    position: relative;
     width: 150px;
     z-index: 6;
 
@@ -57,7 +58,6 @@
     }
 
     .dropdownlist {
-      position: fixed;
       width: 100%;
     }
   }

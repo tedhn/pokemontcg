@@ -4,13 +4,18 @@ import { PokemonContext } from "../../ContextProvider";
 import Home from "./Home";
 
 const HomeContainer = () => {
-  const { GetCards } = useContext(PokemonContext);
+  const { GetCards, UpdateFilter } = useContext(PokemonContext);
 
   useEffect(() => {
     GetCards("");
   }, []);
 
-  return <Home />;
+  const ResetFilter = () => {
+    GetCards("");
+    UpdateFilter();
+  };
+
+  return <Home ResetFilter={ResetFilter} />;
 };
 
 export default HomeContainer;

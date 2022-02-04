@@ -6,6 +6,10 @@
   height: auto;
   width: 100vw;
 
+  .reset {
+    margin: 0 auto 50px auto;
+  }
+
   .cards {
     display: grid;
     position: relative;
@@ -17,6 +21,12 @@
     margin: 20px auto;
     align-items: center;
     justify-content: center;
+
+    .error {
+      grid-column-end: span 3;
+      text-align: center;
+      margin: 100px;
+    }
   }
 
   .loadmore {

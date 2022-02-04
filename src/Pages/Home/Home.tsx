@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 
 import CardContainer from "../../Components/Card/CardContainer";
 import NavBar from "../../Components/NavBar/NavBar";
@@ -12,18 +12,32 @@ import CartContainer from "../../Components/Cart/CartContainer";
 import { PokemonContext } from "../../ContextProvider";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
-const Home = () => {
-  const { cards, GetCards, cart, ToggleCart, showCart } =
+interface props {
+  ResetFilter: any;
+}
+
+const Home: FC<props> = ({ ResetFilter }) => {
+  const { cards, GetCards, cart, ToggleCart, showCart, filtered } =
     useContext(PokemonContext);
 
   return (
     <div className="home">
       <NavBar />
       <SearchBarContainer />
+
+      {filtered && (
+        <div onClick={ResetFilter} className="reset">
+          reset filter
+        </div>
+      )}
       <div className="cards">
-        {cards.map((card: PokemonTCG.Card, index: number) => {
-          return <CardContainer key={index} card={card} />;
-        })}
+        {cards.length !== 0 ? (
+          cards.map((card: PokemonTCG.Card, index: number) => {
+            return <CardContainer key={index} card={card} />;
+          })
+        ) : (
+          <div className="error">no cards found</div>
+        )}
       </div>
       <div className="loadmore" onClick={() => GetCards("")}>
         <Search />
