@@ -18,6 +18,8 @@ const ContextProvider: FC<props> = ({ children }) => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [filter, setFilter] = useState<string>("");
+
   //function to get card data from the api
   const GetCards = async (q: any, c: number) => {
     if (c < counter) {
@@ -110,6 +112,8 @@ const ContextProvider: FC<props> = ({ children }) => {
         UpdateLoading,
         UpdateCounter,
         counter,
+        filter,
+        setFilter,
       }}
     >
       {children}

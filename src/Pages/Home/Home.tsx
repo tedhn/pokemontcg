@@ -28,6 +28,7 @@ const Home: FC<props> = ({ ResetFilter }) => {
     loading,
     UpdateCounter,
     counter,
+    filter,
   } = useContext(PokemonContext);
 
   return (
@@ -61,7 +62,7 @@ const Home: FC<props> = ({ ResetFilter }) => {
         className="loadmore"
         onClick={() => {
           UpdateCounter(counter + 1);
-          GetCards("", counter + 1);
+          GetCards(filter, counter + 1);
         }}
       >
         <Search />

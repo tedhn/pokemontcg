@@ -10,7 +10,7 @@ const SearchBarContainer = () => {
   const [sets, setSets] = useState<Array<string>>();
   const [types, setTypes] = useState<Array<PokemonTCG.Type>>();
 
-  const { GetCards } = useContext(PokemonContext);
+  const { GetCards, setFilter } = useContext(PokemonContext);
 
   useEffect(() => {
     GetListData();
@@ -36,6 +36,7 @@ const SearchBarContainer = () => {
   // handles the input changes in the Name filter box
   const handleNameChange = (e: any) => {
     setName(e.target.value);
+    setFilter("name:" + e.target.value + "*");
     GetCards("name:" + e.target.value + "*", 0);
   };
 

@@ -8,7 +8,7 @@ interface props {
 }
 
 const DropDownContainer: FC<props> = ({ list, label }) => {
-  const { GetCards, UpdateFilter } = useContext(PokemonContext);
+  const { GetCards, UpdateFilter, setFilter } = useContext(PokemonContext);
 
   return (
     <DropDown
@@ -16,6 +16,7 @@ const DropDownContainer: FC<props> = ({ list, label }) => {
       label={label}
       GetCards={GetCards}
       UpdateFilter={UpdateFilter}
+      setFilter={setFilter}
     />
   );
 };

@@ -7,9 +7,16 @@ interface props {
   label: string;
   GetCards: any;
   UpdateFilter: any;
+  setFilter: any;
 }
 
-const DropDown: FC<props> = ({ list, label, GetCards, UpdateFilter }) => {
+const DropDown: FC<props> = ({
+  list,
+  label,
+  GetCards,
+  UpdateFilter,
+  setFilter,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -19,7 +26,8 @@ const DropDown: FC<props> = ({ list, label, GetCards, UpdateFilter }) => {
   const onOptionClicked = (value: string) => () => {
     setSelectedOption(value);
     setIsOpen(false);
-    GetCards(`${label.toLowerCase()}:${value.toLowerCase()}`);
+    setFilter(`${label.toLowerCase()}:${value.toLowerCase()}`);
+    GetCards(`${label.toLowerCase()}:${value.toLowerCase()}`, 0);
     UpdateFilter();
   };
 
