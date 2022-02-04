@@ -16,6 +16,7 @@ const SearchBarContainer = () => {
     GetListData();
   }, []);
 
+  // getting the lsit of list items from the api
   const GetListData = async () => {
     const rarities = await PokemonTCG.getRarities();
     const sets = await PokemonTCG.getAllSets();
@@ -32,6 +33,7 @@ const SearchBarContainer = () => {
     setRarities(rarities);
   };
 
+  // handles the input changes in the Name filter box
   const handleNameChange = (e: any) => {
     setName(e.target.value);
     GetCards("name:" + e.target.value + "*");

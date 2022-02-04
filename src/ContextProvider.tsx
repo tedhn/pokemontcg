@@ -17,6 +17,7 @@ const ContextProvider: FC<props> = ({ children }) => {
   const [filtered, setFiltered] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
+  //function to get card data from the api
   const GetCards = async (q: any) => {
     try {
       const cards = await PokemonTCG.findCardsByQueries({
@@ -32,10 +33,12 @@ const ContextProvider: FC<props> = ({ children }) => {
     }
   };
 
+  //function to add an item to the card
   const AddToCart = (choice: PokemonTCG.Card) => {
     setCart((items) => [...items, choice]);
   };
 
+  //function to remove an item to the card
   const RemovefromCart = (choice: string) => {
     const newCart = cart.filter((item: PokemonTCG.Card) => {
       return item.name !== choice;
@@ -44,23 +47,29 @@ const ContextProvider: FC<props> = ({ children }) => {
     setCart(newCart);
   };
 
+  //function to update the total price of the items in the cart
   const UpdateTotalPrice = (amount: number) => {
     setTotalPrice(totalPrice + amount);
   };
+
+  //function to update the amount of items in the cart
   const UpdateTotalQuantity = (quantity: number) => {
     setTotalQuantity(totalQuantity + quantity);
   };
 
+  //function to remove all items
   const RemoveAllItems = () => {
     setTotalPrice(0);
     setTotalQuantity(0);
     setCart([]);
   };
 
+  //function to show / hide cart panel
   const ToggleCart = () => {
     setShowCart(!showCart);
   };
 
+  //function to update if there has been a filtered searched
   const UpdateFilter = () => {
     setFiltered(!filtered);
   };

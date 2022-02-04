@@ -13,6 +13,7 @@ const CardContainer: FC<props> = ({ card }) => {
     useContext(PokemonContext);
   const [selected, setSelected] = useState<boolean>(false);
 
+  // to untoggle the select button when user removes the item from their cart
   useEffect(() => {
     const stillInCart = cart.includes(card);
 
@@ -21,6 +22,7 @@ const CardContainer: FC<props> = ({ card }) => {
     }
   }, [cart, card]);
 
+  // adding the selected item into the card
   const AddOne = () => {
     setSelected(true);
     AddToCart(card);

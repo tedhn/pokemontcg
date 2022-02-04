@@ -16,12 +16,14 @@ const CartItemContainer: FC<props> = ({ item }) => {
     cardmarket.prices.averageSellPrice
   );
 
+  // adding 1 to the quantity in the cart panel
   const AddOne = () => {
     setAmount(amount + 1);
     setTotal(cardmarket.prices.averageSellPrice * (amount + 1));
     UpdateTotalPrice(cardmarket.prices.averageSellPrice);
     UpdateTotalQuantity(1);
   };
+  //removing 1 from the quantity in the cart panel
   const RemoveOne = () => {
     if (amount - 1 === 0) {
       RemovefromCart(name);

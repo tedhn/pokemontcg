@@ -15,6 +15,7 @@ const DropDown: FC<props> = ({ list, label, GetCards, UpdateFilter }) => {
 
   const toggling = () => setIsOpen(!isOpen);
 
+  // selecting the desired option in the list
   const onOptionClicked = (value: string) => () => {
     setSelectedOption(value);
     setIsOpen(false);

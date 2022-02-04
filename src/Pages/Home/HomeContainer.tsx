@@ -6,6 +6,7 @@ import Home from "./Home";
 const HomeContainer = () => {
   const { GetCards, UpdateFilter } = useContext(PokemonContext);
 
+  // getting the inital 12 cards when the page loads
   useEffect(() => {
     GetCards("");
   }, []);

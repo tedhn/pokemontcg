@@ -24,14 +24,16 @@ const Home: FC<props> = ({ ResetFilter }) => {
     <div className="home">
       <NavBar />
       <SearchBarContainer />
-
+      {/* if filter is applied a reset button will be displayed to reset filters */}
       {filtered && (
         <div onClick={ResetFilter} className="reset">
           reset filter
         </div>
       )}
+      {/* if theres no errors during the api call the cards will be displayed */}
       {!error ? (
         <div className="cards">
+          {/* if the no cards are found , a message will be displayed */}
           {cards.length !== 0 ? (
             cards.map((card: PokemonTCG.Card, index: number) => {
               return <CardContainer key={index} card={card} />;
@@ -41,7 +43,7 @@ const Home: FC<props> = ({ ResetFilter }) => {
           )}
         </div>
       ) : (
-        <div className="error">no cards found</div>
+        <div className="error">Error occured</div>
       )}
       <div className="loadmore" onClick={() => GetCards("")}>
         <Search />
