@@ -3,22 +3,28 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  height: auto;
+  width: 100vw;
 
   .cards {
     display: grid;
+    position: relative;
     height: 100%;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 250px 250px;
     grid-template-rows: auto;
     row-gap: 10px;
-    column-gap: 150px;
-    margin: auto;
+    column-gap: 75px;
+    margin: 20px auto;
+    align-items: center;
+    justify-content: center;
   }
 
   .loadmore {
     margin: auto;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     display: flex;
     flex-direction: row;
+    padding: 10px 20px;
     cursor: pointer;
 
     svg {
@@ -31,13 +37,15 @@
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
-      margin-left: 10px;
+      padding-left: 10px;
     }
   }
 
   .badge {
+    position: sticky;
+    bottom: 5%;
+    z-index: 4;
     margin: auto;
-    padding-bottom: 50px;
 
     .viewcart {
       background-color: #298bfd;
@@ -59,11 +67,40 @@
     }
 
     .text {
-      font-size: 12px;
-      line-height: 14px;
-      display: flex;
-      padding-left: 5px;
-      align-items: center;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      padding-left: 10px;
+    }
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 480px) {
+  .home {
+    .cards {
+      grid-template-columns: 250px;
+    }
+
+    .badge {
+      bottom: 10px;
+    }
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .home {
+    .cards {
+      grid-template-columns: 250px 250px;
+
+      column-gap: 20px;
+    }
+  }
+}
+
+@media screen and(min-width: 769px) {
+  .home {
+    .cards {
+      grid-template-columns: 250px 250px 250px;
     }
   }
 }

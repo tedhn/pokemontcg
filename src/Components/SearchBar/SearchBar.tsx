@@ -24,9 +24,11 @@ const SearchBar: FC<props> = ({
       <div className="input">
         <input onChange={handleNameChange} value={name} placeholder="Name..." />
       </div>
-      <DropDownContainer list={types} label={"Type"} />
-      <DropDownContainer list={rarities} label={"Rarity"} />
-      <DropDownContainer list={sets} label={"Set"} />
+      <div className="dropdowncontainer">
+        <DropDownContainer list={types} label={"Type"} />
+        <DropDownContainer list={rarities} label={"Rarity"} />
+        <DropDownContainer list={sets} label={"Set"} />
+      </div>
     </div>
   );
 };

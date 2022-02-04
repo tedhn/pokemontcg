@@ -1,5 +1,3 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
 import { FC, useState } from "react";
 
 import "./DropDown.scss";
@@ -18,7 +16,6 @@ const DropDown: FC<props> = ({ list, label, value, handleChange }) => {
   const toggling = () => setIsOpen(!isOpen);
 
   const onOptionClicked = (value: string) => () => {
-    console.log("a");
     setSelectedOption(value);
     setIsOpen(false);
   };
@@ -29,7 +26,7 @@ const DropDown: FC<props> = ({ list, label, value, handleChange }) => {
         className={`dropdownheader dropdownheader--${label.toLowerCase()}`}
         onClick={toggling}
       >
-        {selectedOption || label}
+        <>{selectedOption || label}</>
       </div>
       <div className="dropdownlistcontainer">
         {isOpen && (

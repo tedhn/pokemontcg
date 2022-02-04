@@ -103,3 +103,14 @@
     cursor: pointer;
   }
 }
+
+@media screen and (min-width: 0) and (max-width: 768px) {
+  .cart {
+    position: sticky;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(0);
+    width: 96vw;
+    margin: 2vw;
+  }
+}

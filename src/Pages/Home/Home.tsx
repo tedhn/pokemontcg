@@ -13,7 +13,8 @@ import { PokemonContext } from "../../ContextProvider";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
 const Home = () => {
-  const { cards, GetCards, cart, ToggleCart } = useContext(PokemonContext);
+  const { cards, GetCards, cart, ToggleCart, showCart } =
+    useContext(PokemonContext);
 
   return (
     <div className="home">
@@ -44,7 +45,7 @@ const Home = () => {
         </Badge>
       </div>
 
-      <CartContainer />
+      {showCart && <CartContainer />}
     </div>
   );
 };

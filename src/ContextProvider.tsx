@@ -18,7 +18,7 @@ const ContextProvider: FC<props> = ({ children }) => {
   const GetCards = async (q: any) => {
     const cards = await PokemonTCG.findCardsByQueries({
       q: q,
-      pageSize: 3 * counter,
+      pageSize: 12 * counter,
       page: 1,
     });
 

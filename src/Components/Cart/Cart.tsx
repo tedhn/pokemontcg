@@ -5,20 +5,11 @@ import CartItemContainer from "../CartItem/CartItemContainer";
 import "./Cart.scss";
 
 const Cart = () => {
-  const {
-    cart,
-    showCart,
-    ToggleCart,
-    totalPrice,
-    totalQuantity,
-    RemoveAllItems,
-  } = useContext(PokemonContext);
+  const { cart, ToggleCart, totalPrice, totalQuantity, RemoveAllItems } =
+    useContext(PokemonContext);
 
   return (
-    <div
-      className="cart"
-      style={{ visibility: showCart ? "visible" : "hidden" }}
-    >
+    <div className="cart">
       <div className="items">
         {cart.map((item: PokemonTCG.Card, index: number) => {
           return <CartItemContainer item={item} key={index} />;

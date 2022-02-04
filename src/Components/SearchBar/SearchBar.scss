@@ -6,14 +6,11 @@
 
   .input {
     color: #bcbbbb;
-    width: 150px;
     text-align: center;
     input {
       color: #bcbbbb;
       width: 100%;
       text-align: center;
-      height: 44px;
-      font-size: fit-content;
       border: 0;
       border-right: 3px solid #dfdfdf;
       border-radius: 50px 0 0 50px;
@@ -26,5 +23,33 @@
         color: #bcbbbb;
       }
     }
+  }
+
+  .dropdowncontainer {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 768px) {
+  .searchbar {
+    flex-direction: column;
+    width: 90%;
+    margin: 50px auto;
+    .input {
+      input {
+        border: none;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03);
+        border-radius: 100px;
+        width: 100%;
+      }
+    }
+  }
+
+  .dropdowncontainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
