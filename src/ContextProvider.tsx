@@ -15,17 +15,21 @@ const ContextProvider: FC<props> = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [filtered, setFiltered] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const GetCards = async (q: any) => {
-    const cards = await PokemonTCG.findCardsByQueries({
-      q: q,
-      pageSize: 12 * counter,
-      page: 1,
-    });
-
-    console.log(cards);
-    setCounter(counter + 1);
-    setCards(cards);
+    try {
+      const cards = await PokemonTCG.findCardsByQueries({
+        q: q,
+        pageSize: 12 * counter,
+        page: 1,
+      });
+      setError(false);
+      setCounter(counter + 1);
+      setCards(cards);
+    } catch (e) {
+      setError(true);
+    }
   };
 
   const AddToCart = (choice: PokemonTCG.Card) => {
@@ -78,6 +82,7 @@ const ContextProvider: FC<props> = ({ children }) => {
         RemoveAllItems,
         UpdateFilter,
         filtered,
+        error,
       }}
     >
       {children}

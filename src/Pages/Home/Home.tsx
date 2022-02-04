@@ -17,7 +17,7 @@ interface props {
 }
 
 const Home: FC<props> = ({ ResetFilter }) => {
-  const { cards, GetCards, cart, ToggleCart, showCart, filtered } =
+  const { cards, GetCards, cart, ToggleCart, showCart, filtered, error } =
     useContext(PokemonContext);
 
   return (
@@ -30,15 +30,19 @@ const Home: FC<props> = ({ ResetFilter }) => {
           reset filter
         </div>
       )}
-      <div className="cards">
-        {cards.length !== 0 ? (
-          cards.map((card: PokemonTCG.Card, index: number) => {
-            return <CardContainer key={index} card={card} />;
-          })
-        ) : (
-          <div className="error">no cards found</div>
-        )}
-      </div>
+      {!error ? (
+        <div className="cards">
+          {cards.length !== 0 ? (
+            cards.map((card: PokemonTCG.Card, index: number) => {
+              return <CardContainer key={index} card={card} />;
+            })
+          ) : (
+            <div className="error">no cards found</div>
+          )}
+        </div>
+      ) : (
+        <div className="error">no cards found</div>
+      )}
       <div className="loadmore" onClick={() => GetCards("")}>
         <Search />
         <div className="text">show more</div>

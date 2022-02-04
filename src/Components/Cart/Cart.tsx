@@ -11,9 +11,13 @@ const Cart = () => {
   return (
     <div className="cart">
       <div className="items">
-        {cart.map((item: PokemonTCG.Card, index: number) => {
-          return <CartItemContainer item={item} key={index} />;
-        })}
+        {cart.length !== 0 ? (
+          cart.map((item: PokemonTCG.Card, index: number) => {
+            return <CartItemContainer item={item} key={index} />;
+          })
+        ) : (
+          <div className="text">Empy Cart</div>
+        )}
       </div>
 
       <div className="clear" onClick={RemoveAllItems}>
