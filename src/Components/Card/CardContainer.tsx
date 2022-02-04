@@ -9,7 +9,8 @@ interface props {
 
 const CardContainer: FC<props> = ({ card }) => {
   const { name, rarity, set, images, cardmarket } = card;
-  const { AddToCart, cart } = useContext(PokemonContext);
+  const { AddToCart, cart, UpdateTotalPrice, UpdateTotalQuantity } =
+    useContext(PokemonContext);
   const [selected, setSelected] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,9 +21,11 @@ const CardContainer: FC<props> = ({ card }) => {
     }
   }, [cart, card]);
 
-  const Add = () => {
+  const AddOne = () => {
     setSelected(true);
     AddToCart(card);
+    UpdateTotalPrice(cardmarket.prices.averageSellPrice);
+    UpdateTotalQuantity(1);
   };
 
   return (
@@ -33,7 +36,7 @@ const CardContainer: FC<props> = ({ card }) => {
         price={cardmarket.prices.averageSellPrice}
         quantity={set.total}
         images={images.large}
-        Add={Add}
+        AddOne={AddOne}
         selected={selected}
       />
     </>

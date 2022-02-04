@@ -9,6 +9,7 @@ interface props {
   amount: number;
   AddOne: any;
   RemoveOne: any;
+  total: number;
 }
 
 const CartItem: FC<props> = ({
@@ -19,6 +20,7 @@ const CartItem: FC<props> = ({
   AddOne,
   RemoveOne,
   amount,
+  total,
 }) => {
   return (
     <div className="cartitem">
@@ -46,7 +48,7 @@ const CartItem: FC<props> = ({
           </div>
         </div>
         <div className="pricetext">price</div>
-        <div className="tprice">${(amount * price).toFixed(2)}</div>
+        <div className="tprice">${total.toFixed(2)}</div>
       </div>
     </div>
   );

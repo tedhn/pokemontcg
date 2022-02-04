@@ -13,7 +13,7 @@ import { PokemonContext } from "../../ContextProvider";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
 const Home = () => {
-  const { cards, GetCards, cart, toggleCart } = useContext(PokemonContext);
+  const { cards, GetCards, cart, ToggleCart } = useContext(PokemonContext);
 
   return (
     <div className="home">
@@ -37,7 +37,7 @@ const Home = () => {
             horizontal: "left",
           }}
         >
-          <div className="viewcart" onClick={toggleCart}>
+          <div className="viewcart" onClick={ToggleCart}>
             <ShoppingCartOutlinedIcon />
             <div className="text">View Cart</div>
           </div>

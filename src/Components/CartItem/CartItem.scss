@@ -3,6 +3,7 @@
   flex-direction: row;
   color: #6a6969;
   justify-content: space-between;
+  margin: 10px;
 
   .image {
     height: 130px;
@@ -70,6 +71,9 @@
 
       .changes {
         padding-left: 10px;
+        div {
+          cursor: pointer;
+        }
       }
     }
 

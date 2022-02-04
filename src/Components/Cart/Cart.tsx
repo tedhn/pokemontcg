@@ -5,7 +5,14 @@ import CartItemContainer from "../CartItem/CartItemContainer";
 import "./Cart.scss";
 
 const Cart = () => {
-  const { cart, showCart, toggleCart } = useContext(PokemonContext);
+  const {
+    cart,
+    showCart,
+    ToggleCart,
+    totalPrice,
+    totalQuantity,
+    RemoveAllItems,
+  } = useContext(PokemonContext);
 
   return (
     <div
@@ -18,20 +25,22 @@ const Cart = () => {
         })}
       </div>
 
-      <div className="clear">Clear All</div>
+      <div className="clear" onClick={RemoveAllItems}>
+        Clear All
+      </div>
       <div className="checkout">
         <div className="totaln">
           <div className="text">Total Cards</div>
-          <div className="number">7</div>
+          <div className="number">{totalQuantity}</div>
         </div>
         <div className="totalp">
           <div className="text">Total Price</div>
-          <div className="number">19.97</div>
+          <div className="number">${totalPrice.toFixed(2)}</div>
         </div>
         <div className="button">Pay Now</div>
       </div>
 
-      <div className="close" onClick={toggleCart}>
+      <div className="close" onClick={ToggleCart}>
         X
       </div>
     </div>

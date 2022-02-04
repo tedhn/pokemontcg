@@ -7,20 +7,29 @@ interface props {
 }
 
 const CartItemContainer: FC<props> = ({ item }) => {
-  const { RemovefromCart } = useContext(PokemonContext);
+  const { RemovefromCart, UpdateTotalPrice, UpdateTotalQuantity } =
+    useContext(PokemonContext);
   const { name, set, images, cardmarket } = item;
 
   const [amount, setAmount] = useState<number>(1);
+  const [total, setTotal] = useState<number>(
+    cardmarket.prices.averageSellPrice
+  );
 
   const AddOne = () => {
     setAmount(amount + 1);
+    setTotal(cardmarket.prices.averageSellPrice * (amount + 1));
+    UpdateTotalPrice(cardmarket.prices.averageSellPrice);
+    UpdateTotalQuantity(1);
   };
   const RemoveOne = () => {
     if (amount - 1 === 0) {
       RemovefromCart(name);
-    } else {
-      setAmount(amount - 1);
     }
+    setAmount(amount - 1);
+    setTotal(cardmarket.prices.averageSellPrice * (amount - 1));
+    UpdateTotalPrice(-cardmarket.prices.averageSellPrice);
+    UpdateTotalQuantity(-1);
   };
 
   return (
@@ -33,6 +42,7 @@ const CartItemContainer: FC<props> = ({ item }) => {
         price={cardmarket.prices.averageSellPrice}
         AddOne={AddOne}
         RemoveOne={RemoveOne}
+        total={total}
       />
     </>
   );

@@ -12,9 +12,10 @@ const ContextProvider: FC<props> = ({ children }) => {
   const [counter, setCounter] = useState<number>(1);
   const [cart, setCart] = useState<Array<PokemonTCG.Card>>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
 
   const GetCards = async (q: any) => {
-    console.log(q);
     const cards = await PokemonTCG.findCardsByQueries({
       q: q,
       pageSize: 3 * counter,
@@ -27,7 +28,7 @@ const ContextProvider: FC<props> = ({ children }) => {
   };
 
   const AddToCart = (choice: PokemonTCG.Card) => {
-    setCart((items) => [...cart, choice]);
+    setCart((items) => [...items, choice]);
   };
 
   const RemovefromCart = (choice: string) => {
@@ -38,7 +39,20 @@ const ContextProvider: FC<props> = ({ children }) => {
     setCart(newCart);
   };
 
-  const toggleCart = () => {
+  const UpdateTotalPrice = (amount: number) => {
+    setTotalPrice(totalPrice + amount);
+  };
+  const UpdateTotalQuantity = (quantity: number) => {
+    setTotalQuantity(totalQuantity + quantity);
+  };
+
+  const RemoveAllItems = () => {
+    setTotalPrice(0);
+    setTotalQuantity(0);
+    setCart([]);
+  };
+
+  const ToggleCart = () => {
     setShowCart(!showCart);
   };
 
@@ -46,12 +60,17 @@ const ContextProvider: FC<props> = ({ children }) => {
     <PokemonContext.Provider
       value={{
         cards,
-        toggleCart,
+        ToggleCart,
         GetCards,
         cart,
         AddToCart,
         showCart,
         RemovefromCart,
+        UpdateTotalPrice,
+        totalPrice,
+        UpdateTotalQuantity,
+        totalQuantity,
+        RemoveAllItems,
       }}
     >
       {children}

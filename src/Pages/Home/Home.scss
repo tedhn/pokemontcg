@@ -16,7 +16,7 @@
 
   .loadmore {
     margin: auto;
-    padding-bottom: 50px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: row;
     cursor: pointer;
@@ -38,6 +38,7 @@
   .badge {
     margin: auto;
     padding-bottom: 50px;
+
     .viewcart {
       background-color: #298bfd;
       color: white;
@@ -49,6 +50,7 @@
       flex-direction: row;
       justify-content: center;
       align-content: center;
+      cursor: pointer;
     }
 
     svg {

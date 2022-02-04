@@ -8,7 +8,7 @@ interface props {
   price: number | null | undefined;
   quantity: number;
   images: string;
-  Add: any;
+  AddOne: any;
   selected: boolean;
 }
 
@@ -18,7 +18,7 @@ const Card: FC<props> = ({
   price,
   quantity,
   images,
-  Add,
+  AddOne,
   selected,
 }) => {
   return (
@@ -36,7 +36,7 @@ const Card: FC<props> = ({
 
       <div
         className="button"
-        onClick={Add}
+        onClick={AddOne}
         style={{
           backgroundColor: selected ? "#1D1C1C" : "#fdce29",
           color: selected ? "#ffffff" : "#1D1C1C",
