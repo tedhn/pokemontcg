@@ -36,7 +36,7 @@ const SearchBarContainer = () => {
   // handles the input changes in the Name filter box
   const handleNameChange = (e: any) => {
     setName(e.target.value);
-    GetCards("name:" + e.target.value + "*");
+    GetCards("name:" + e.target.value + "*", 0);
   };
 
   return (

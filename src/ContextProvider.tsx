@@ -9,24 +9,30 @@ interface props {
 
 const ContextProvider: FC<props> = ({ children }) => {
   const [cards, setCards] = useState<Array<PokemonTCG.Card>>([]);
-  const [counter, setCounter] = useState<number>(1);
+  const [counter, setCounter] = useState<number>(0);
   const [cart, setCart] = useState<Array<PokemonTCG.Card>>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [filtered, setFiltered] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   //function to get card data from the api
-  const GetCards = async (q: any) => {
+  const GetCards = async (q: any, c: number) => {
+    if (c < counter) {
+      setCounter(c);
+    }
+
     try {
       const cards = await PokemonTCG.findCardsByQueries({
         q: q,
-        pageSize: 12 * counter,
+        pageSize: 12 + 12 * c,
         page: 1,
       });
+
+      console.log(counter);
       setError(false);
-      setCounter(counter + 1);
       setCards(cards);
     } catch (e) {
       setError(true);
@@ -74,6 +80,14 @@ const ContextProvider: FC<props> = ({ children }) => {
     setFiltered(!filtered);
   };
 
+  //function to toggle loading boolean
+  const UpdateLoading = () => {
+    setLoading(!loading);
+  };
+  const UpdateCounter = (c: number) => {
+    setCounter(c);
+  };
+
   return (
     <PokemonContext.Provider
       value={{
@@ -92,6 +106,10 @@ const ContextProvider: FC<props> = ({ children }) => {
         UpdateFilter,
         filtered,
         error,
+        loading,
+        UpdateLoading,
+        UpdateCounter,
+        counter,
       }}
     >
       {children}

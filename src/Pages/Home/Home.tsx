@@ -17,8 +17,18 @@ interface props {
 }
 
 const Home: FC<props> = ({ ResetFilter }) => {
-  const { cards, GetCards, cart, ToggleCart, showCart, filtered, error } =
-    useContext(PokemonContext);
+  const {
+    cards,
+    GetCards,
+    cart,
+    ToggleCart,
+    showCart,
+    filtered,
+    error,
+    loading,
+    UpdateCounter,
+    counter,
+  } = useContext(PokemonContext);
 
   return (
     <div className="home">
@@ -31,10 +41,11 @@ const Home: FC<props> = ({ ResetFilter }) => {
         </div>
       )}
       {/* if theres no errors during the api call the cards will be displayed */}
-      {!error ? (
+
+      {error || (
         <div className="cards">
           {/* if the no cards are found , a message will be displayed */}
-          {cards.length !== 0 ? (
+          {cards.length !== 0 && !loading ? (
             cards.map((card: PokemonTCG.Card, index: number) => {
               return <CardContainer key={index} card={card} />;
             })
@@ -42,10 +53,17 @@ const Home: FC<props> = ({ ResetFilter }) => {
             <div className="error">no cards found</div>
           )}
         </div>
-      ) : (
-        <div className="error">Error occured</div>
       )}
-      <div className="loadmore" onClick={() => GetCards("")}>
+
+      {error && <div className="error">Error occured</div>}
+
+      <div
+        className="loadmore"
+        onClick={() => {
+          UpdateCounter(counter + 1);
+          GetCards("", counter + 1);
+        }}
+      >
         <Search />
         <div className="text">show more</div>
       </div>
