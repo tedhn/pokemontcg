@@ -29,6 +29,7 @@ const Home: FC<props> = ({ ResetFilter }) => {
     UpdateCounter,
     counter,
     filter,
+    setLoading,
   } = useContext(PokemonContext);
 
   return (
@@ -46,29 +47,40 @@ const Home: FC<props> = ({ ResetFilter }) => {
       {error || (
         <div className="cards">
           {/* if the no cards are found , a message will be displayed */}
-          {cards.length !== 0 && !loading ? (
-            cards.map((card: PokemonTCG.Card, index: number) => {
-              return <CardContainer key={index} card={card} />;
-            })
-          ) : (
+          {cards.length === 0 && !loading ? (
             <div className="error">no cards found</div>
+          ) : (
+            <>
+              {cards.map((card: PokemonTCG.Card, index: number) => {
+                return <CardContainer key={index} card={card} />;
+              })}
+            </>
           )}
         </div>
       )}
 
       {error && <div className="error">Error occured</div>}
 
+      {loading ? (
+        <div className="loading">Loading</div>
+      ) : (
+        <div
+          className="loadmore"
+          onClick={() => {
+            setLoading(true);
+            UpdateCounter(counter + 1);
+            GetCards(filter, counter + 1);
+          }}
+        >
+          <Search />
+          <div className="text">show more</div>
+        </div>
+      )}
+
       <div
-        className="loadmore"
-        onClick={() => {
-          UpdateCounter(counter + 1);
-          GetCards(filter, counter + 1);
-        }}
+        className="badge"
+        style={{ visibility: showCart ? "hidden" : "visible" }}
       >
-        <Search />
-        <div className="text">show more</div>
-      </div>
-      <div className="badge">
         <Badge
           badgeContent={cart.length}
           color="error"

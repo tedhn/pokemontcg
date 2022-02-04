@@ -33,7 +33,7 @@ const ContextProvider: FC<props> = ({ children }) => {
         page: 1,
       });
 
-      console.log(counter);
+      setLoading(false);
       setError(false);
       setCards(cards);
     } catch (e) {
@@ -82,10 +82,6 @@ const ContextProvider: FC<props> = ({ children }) => {
     setFiltered(!filtered);
   };
 
-  //function to toggle loading boolean
-  const UpdateLoading = () => {
-    setLoading(!loading);
-  };
   const UpdateCounter = (c: number) => {
     setCounter(c);
   };
@@ -109,11 +105,11 @@ const ContextProvider: FC<props> = ({ children }) => {
         filtered,
         error,
         loading,
-        UpdateLoading,
         UpdateCounter,
         counter,
         filter,
         setFilter,
+        setLoading,
       }}
     >
       {children}
