@@ -19,7 +19,6 @@ interface props {
 const Home: FC<props> = ({ ResetFilter }) => {
   const {
     cards,
-    GetCards,
     cart,
     ToggleCart,
     showCart,
@@ -28,7 +27,6 @@ const Home: FC<props> = ({ ResetFilter }) => {
     loading,
     UpdateCounter,
     counter,
-    filter,
     setLoading,
   } = useContext(PokemonContext);
 
@@ -69,7 +67,6 @@ const Home: FC<props> = ({ ResetFilter }) => {
           onClick={() => {
             setLoading(true);
             UpdateCounter(counter + 1);
-            GetCards(filter, counter + 1);
           }}
         >
           <Search />

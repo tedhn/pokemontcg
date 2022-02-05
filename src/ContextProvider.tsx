@@ -1,5 +1,5 @@
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useEffect, useState } from "react";
 
 const PokemonContext = createContext<any>({});
 
@@ -10,36 +10,73 @@ interface props {
 const ContextProvider: FC<props> = ({ children }) => {
   const [cards, setCards] = useState<Array<PokemonTCG.Card>>([]);
   const [counter, setCounter] = useState<number>(0);
+
+  //cart related states
   const [cart, setCart] = useState<Array<PokemonTCG.Card>>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
-  const [filtered, setFiltered] = useState<boolean>(false);
+
+  // error / loading states
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [filter, setFilter] = useState<string>("");
+  //filter related states
+  const [params, setParams] = useState<string>("");
+  const [nameFilter, setNameFilter] = useState<string>("");
+  const [rarityFilter, setRarityFilter] = useState<string>("");
+  const [setsFilter, setSetsFilter] = useState<string>("");
+  const [typesFilter, setTypesFilter] = useState<string>("");
+  const [filtered, setFiltered] = useState<boolean>(false);
 
-  //function to get card data from the api
-  const GetCards = async (q: any, c: number) => {
-    if (c < counter) {
-      setCounter(c);
-    }
+  //updates the param string whenever a filter a applied
+  useEffect(() => {
+    const UpdateParams = () => {
+      let newParams = "";
+      if (nameFilter) {
+        newParams = newParams + `name:${nameFilter}* `;
+      }
+      if (rarityFilter) {
+        newParams = newParams + `!rarity:${rarityFilter.replaceAll(" ", "")} `;
+      }
+      if (typesFilter) {
+        newParams = newParams + `!types:${typesFilter.replaceAll(" ", "")} `;
+      }
+      if (setsFilter) {
+        newParams = newParams + `!set.name:${setsFilter.replaceAll(" ", "")} `;
+      }
 
-    try {
-      const cards = await PokemonTCG.findCardsByQueries({
+      setParams(newParams);
+    };
+    UpdateParams();
+    setCounter(0);
+  }, [nameFilter, rarityFilter, setsFilter, typesFilter]);
+
+  //gets cards whenever the param states or the counter state changes
+  useEffect(() => {
+    //function to get card data from the api
+    const GetCards = async (q: any, c: number) => {
+      const params = {
         q: q,
         pageSize: 12 + 12 * c,
         page: 1,
-      });
+      };
+      if (c < counter) {
+        setCounter(c);
+      }
 
-      setLoading(false);
-      setError(false);
-      setCards(cards);
-    } catch (e) {
-      setError(true);
-    }
-  };
+      try {
+        const cards = await PokemonTCG.findCardsByQueries(params);
+
+        setLoading(false);
+        setError(false);
+        setCards(cards);
+      } catch (e) {
+        setError(true);
+      }
+    };
+    GetCards(params, counter);
+  }, [params, counter]);
 
   //function to add an item to the card
   const AddToCart = (choice: PokemonTCG.Card) => {
@@ -82,6 +119,7 @@ const ContextProvider: FC<props> = ({ children }) => {
     setFiltered(!filtered);
   };
 
+  //fucntion to keep track of the amount of cards to display
   const UpdateCounter = (c: number) => {
     setCounter(c);
   };
@@ -90,26 +128,30 @@ const ContextProvider: FC<props> = ({ children }) => {
     <PokemonContext.Provider
       value={{
         cards,
-        ToggleCart,
-        GetCards,
         cart,
-        AddToCart,
         showCart,
-        RemovefromCart,
-        UpdateTotalPrice,
         totalPrice,
-        UpdateTotalQuantity,
         totalQuantity,
-        RemoveAllItems,
-        UpdateFilter,
         filtered,
         error,
         loading,
-        UpdateCounter,
         counter,
-        filter,
-        setFilter,
+        rarityFilter,
+        setsFilter,
+        typesFilter,
+        setNameFilter,
         setLoading,
+        setRarityFilter,
+        setSetsFilter,
+        setTypesFilter,
+        UpdateCounter,
+        RemoveAllItems,
+        UpdateTotalQuantity,
+        UpdateTotalPrice,
+        RemovefromCart,
+        AddToCart,
+        ToggleCart,
+        UpdateFilter,
       }}
     >
       {children}

@@ -1,36 +1,25 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import "./DropDown.scss";
 
 interface props {
   list: Array<any> | undefined;
   label: string;
-  GetCards: any;
-  UpdateFilter: any;
-  setFilter: any;
+
+  toggling: any;
+  selectedOption: string;
+  onOptionClicked: any;
+  isOpen: boolean;
 }
 
 const DropDown: FC<props> = ({
   list,
   label,
-  GetCards,
-  UpdateFilter,
-  setFilter,
+  toggling,
+  selectedOption,
+  onOptionClicked,
+  isOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>("");
-
-  const toggling = () => setIsOpen(!isOpen);
-
-  // selecting the desired option in the list
-  const onOptionClicked = (value: string) => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-    setFilter(`${label.toLowerCase()}:${value.toLowerCase()}`);
-    GetCards(`${label.toLowerCase()}:${value.toLowerCase()}`, 0);
-    UpdateFilter();
-  };
-
   return (
     <div className="dropdown">
       <div

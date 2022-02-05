@@ -1,13 +1,24 @@
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import { useContext } from "react";
-import { PokemonContext } from "../../ContextProvider";
+import { FC } from "react";
+
 import CartItemContainer from "../CartItem/CartItemContainer";
 import "./Cart.scss";
 
-const Cart = () => {
-  const { cart, ToggleCart, totalPrice, totalQuantity, RemoveAllItems } =
-    useContext(PokemonContext);
+interface props {
+  cart: Array<PokemonTCG.Card>;
+  ToggleCart: any;
+  totalPrice: number;
+  totalQuantity: number;
+  RemoveAllItems: any;
+}
 
+const Cart: FC<props> = ({
+  cart,
+  ToggleCart,
+  totalPrice,
+  totalQuantity,
+  RemoveAllItems,
+}) => {
   return (
     <div className="cart">
       <div className="items">

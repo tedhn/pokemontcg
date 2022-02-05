@@ -1,22 +1,37 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { PokemonContext } from "../../ContextProvider";
 import DropDown from "./DropDown";
 
 interface props {
   list: Array<any> | undefined;
   label: string;
+  setFilter: any;
+  filter: string;
 }
 
-const DropDownContainer: FC<props> = ({ list, label }) => {
-  const { GetCards, UpdateFilter, setFilter } = useContext(PokemonContext);
+const DropDownContainer: FC<props> = ({ list, label, setFilter, filter }) => {
+  const { UpdateFilter } = useContext(PokemonContext);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  //toggling the dropdown menu
+  const toggling = () => setIsOpen(!isOpen);
+
+  // selecting the desired option in the list
+  const onOptionClicked = (value: string) => () => {
+    setIsOpen(false);
+    setFilter(value);
+    UpdateFilter();
+  };
 
   return (
     <DropDown
       list={list}
       label={label}
-      GetCards={GetCards}
-      UpdateFilter={UpdateFilter}
-      setFilter={setFilter}
+      toggling={toggling}
+      isOpen={isOpen}
+      onOptionClicked={onOptionClicked}
+      selectedOption={filter}
     />
   );
 };
